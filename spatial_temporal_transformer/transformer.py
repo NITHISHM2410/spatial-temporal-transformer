@@ -176,7 +176,12 @@ class SpatialTemporalTransformer(nn.Module):
         return y
 
 
-# Loss function (Adjust KL_WEIGHT according to the use case)
+# Loss function's signature is designed w.r.t `flax-pilot` Trainer.
+# Adjust KL_WEIGHT according to the use case
+
+# Adjust the below loss_fn if any changes are required.
+# or add a new loss function retaining the signature of the function and assign it to trainer during training.
+
 def loss_fn(params, apply, x, det, prng_key, step):
     x, mask, t = x
 

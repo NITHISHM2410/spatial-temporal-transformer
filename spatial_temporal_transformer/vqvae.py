@@ -238,7 +238,11 @@ class VQVAE(nn.Module):
         return y, codebook_loss
 
 
-# Loss function (Change loss from BCE to MSE in case of RGB Images)
+# Loss function's signature is designed w.r.t `flax-pilot` Trainer.
+
+# Change loss_fn below based on use case like from changing BCE to MSE in case of RGB Images,
+# or add a new loss function retaining the signature of the function and assign it to trainer during training.
+
 def loss_fn(params, apply, sample, deterministic, prng_key, step):
     x = sample
 
