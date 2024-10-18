@@ -1,9 +1,11 @@
+
 ## Spatial-Temporal Transformer
 
 ### I. Vector-Quantized Autoencoders
 - Vector-Quantized autoencoders are used to represent images in a compressed latent space. 
 - For High-Resolution outputs, VQGANs (VQVAE trained with Discriminator) are a much better choice.
 - The generative transformer model works on this compressed latent space of the images.
+- The reason to work on a compressed latent space rather than the high-dimensional original input space is to reduce the computational load and memory requirements.
 
 ### II. Transformer 
 

@@ -7,6 +7,9 @@ from spatial_temporal_transformer.vqvae import SpatialSelfAttention, attention
 MIN_TEMPORAL_UNITS = 10
 MAX_TEMPORAL_UNITS = 20
 
+# Adjust KL_WEIGHT according to the use case
+KL_WEIGHT = 1e-6
+
 
 def cal_kl_loss(mean, logvar):
     return -0.5 * (1 + logvar - jnp.square(mean) - jnp.exp(logvar))
@@ -190,7 +193,6 @@ def loss_fn(params, apply, x, det, prng_key, step):
     recons = jnp.square(y_true - y_pred).mean(axis=(2, 3, 4)) * mask
     recons = recons.sum() / mask.sum()
 
-    KL_WEIGHT = 1e-6
     kl_loss = kl_loss * KL_WEIGHT
 
     loss = recons + kl_loss
