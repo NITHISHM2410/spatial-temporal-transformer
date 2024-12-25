@@ -243,7 +243,7 @@ class VQVAE(nn.Module):
 # Change loss_fn below based on use case like from changing BCE to MSE in case of RGB Images,
 # or add a new loss function retaining the signature of the function and assign it to trainer during training.
 
-def loss_fn(params, apply, sample, deterministic, prng_key, step):
+def loss_fn(params, variables, apply, sample, deterministic, prng_key, step, objective):
     x = sample
 
     y, vq_loss = apply(params, x, deterministic=deterministic, rngs={'normal': prng_key})
@@ -258,4 +258,4 @@ def loss_fn(params, apply, sample, deterministic, prng_key, step):
         'lt': {'vq': vq_loss, 'recons': recons_loss},
         'mt': dict()
     }
-    return loss, loss_metric_values_dict
+    return loss, {}, loss_metric_values_dict

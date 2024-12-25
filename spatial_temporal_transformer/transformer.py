@@ -185,7 +185,7 @@ class SpatialTemporalTransformer(nn.Module):
 # Adjust the below loss_fn if any changes are required.
 # or add a new loss function retaining the signature of the function and assign it to trainer during training.
 
-def loss_fn(params, apply, x, det, prng_key, step):
+def loss_fn(params, variables, apply, x, det, prng_key, step, objective):
     x, mask, t = x
 
     (y_true, y_pred), kl_loss = apply(params, x, mask=mask, deterministic=det, rngs={'normal': prng_key})
@@ -201,4 +201,4 @@ def loss_fn(params, apply, x, det, prng_key, step):
         'lt': {'recons': recons, 'kl': kl_loss},
         'mt': {}
     }
-    return loss, loss_metric_values_dict
+    return loss, {}, loss_metric_values_dict
